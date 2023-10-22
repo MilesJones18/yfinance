@@ -13,7 +13,8 @@ app.layout = html.Div([
     html.H4('Stock analytics'),
     dcc.Input(
         id='tickerID',
-        value='',
+        debounce=True,
+        value=None,
         type='text',
         placeholder='Input a ticker...'
     ),
@@ -22,7 +23,7 @@ app.layout = html.Div([
 
 @app.callback(
         Output('graph', 'figure'),
-        Input('tickerID', 'value')
+        [Input('tickerID', 'value')]
 )
 def display_graph(tickerID):
     
@@ -142,4 +143,6 @@ def display_graph(tickerID):
 
 # fig.show()
 
-app.run_server(debug=True,dev_tools_ui=False,dev_tools_props_check=False)
+if __name__ == '__main__':
+
+    app.run_server(debug=True)
